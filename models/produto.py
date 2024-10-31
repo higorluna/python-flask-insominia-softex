@@ -1,9 +1,9 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
-
+from . import db
 class Produto(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
     
-def __repr__(self):
-    return f'<Produto {self.nome}>'
+    __tablename__ = 'produtos'
+    
+    produto_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    produto_nome = db.Column(db.String(100), nullable=False)
+    produto_preco = db.Column(db.Numeric(10,2), nullable=False)
+    
