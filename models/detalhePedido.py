@@ -1,4 +1,4 @@
-
+from sqlalchemy import ForeignKey
 from . import db
 
 class DetalhePedido(db.Model):
@@ -10,7 +10,7 @@ class DetalhePedido(db.Model):
     detalhe_preco = db.Column(db.Numeric(10,2), nullable=False)
     detalhe_desconto = db.Column(db.Numeric(10,2))
     
-    pedido_id = db.Column(db.Integer, db.ForeignKey("app.Model", verbose_name=_(""), on_delete=models.CASCADE)("pedidos.pedido_id"), nullable=False)
+    pedido_id = db.Column(db.Integer, db.ForeignKey("pedidos.pedido_id"), nullable=False)
     produto_id = db.Column(db.Integer, db.ForeignKey("produtos.produto_id"), nullable=False)
     
     pedido = db.relationship('Pedido', backref='detalhes_pedidos')

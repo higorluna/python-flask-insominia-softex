@@ -5,6 +5,7 @@ from controllers import produto_bp
 from controllers import usuario_bp
 from controllers import pedido_bp
 from controllers import cliente_bp
+from controllers import detalhe_pedido_bp
 
 
 
@@ -21,6 +22,7 @@ def criar_app():
     app.register_blueprint(usuario_bp)
     app.register_blueprint(pedido_bp)
     app.register_blueprint(cliente_bp)
+    app.register_blueprint(detalhe_pedido_bp)
     
     app.run(debug=True)
     

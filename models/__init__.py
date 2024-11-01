@@ -6,4 +6,4 @@ from .cliente import Cliente
 from .pedido import Pedido
 from .produto import Produto
 from .usuario import Usuario
-#from .detalhePedido import DetalhePedido
+from .detalhePedido import DetalhePedido

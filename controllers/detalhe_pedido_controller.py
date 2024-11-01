@@ -1,41 +1,41 @@
-"""from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 from models import db, DetalhePedido
 
 detalhe_pedido_bp = Blueprint('detalhes_pedidos', __name__)
-#parei aqui
-@pedido_bp.route('/pedido', methods=['POST'])
-def criar_pedido():
+
+@detalhe_pedido_bp.route('/detalhe-pedido', methods=['POST'])
+def criar_detalhe_pedido():
     data = request.json
-    novo_pedido = Pedido(cliente_id = data['cliente_id'], data_compras = data['data_compras'])
-    db.session.add(novo_pedido)
+    novo_detalhe_pedido = DetalhePedido(detalhe_quantidade = data['detalhe_quantidade'], detalhe_preco = data['detalhe_preco'], detalhe_desconto = data['detalhe_desconto'], pedido_id = data['pedido_id'], produto_id = data['produto_id'])
+    db.session.add(novo_detalhe_pedido)
     db.session.commit()
-    return jsonify({'id': novo_pedido.pedido_id, 'cliente': novo_pedido.cliente_id, 'data_compras': novo_pedido.data_compras}), 201
+    return jsonify({'id': novo_detalhe_pedido.detalhe_id, 'pedido': novo_detalhe_pedido.pedido_id, 'produto': novo_detalhe_pedido.produto_id}), 201
 
-@pedido_bp.route('/pedido', methods=['GET'])
-def listar_pedido():
-    pedidos = Pedido.query.all()
-    lista_pedido = [{'id': pedido.pedido_id, 'nome': pedido.pedido_nome, 'cliente': pedido.cliente_id, 'data': pedido.data_compras} for pedido in pedidos]
-    return jsonify(lista_pedido)
+@detalhe_pedido_bp.route('/detalhe-pedido', methods=['GET'])
+def listar_detalhe_pedido():
+    detalhes_pedidos = DetalhePedido.query.all()
+    lista_detalhes_pedido = [{'id': detalhe_pedido.detalhe_id, 'quantidade': detalhe_pedido.detalhe_quantidade, 'preco': detalhe_pedido.detalhe_preco, 'desconto': detalhe_pedido.detalhe_desconto, 'pedido': detalhe_pedido.pedido_id, 'produto': detalhe_pedido.produto_id} for detalhe_pedido in detalhes_pedidos]
+    return jsonify(lista_detalhes_pedido)
 
-@pedido_bp.route('/pedido/<int:id>', methods=['PUT'])
-def atualizar_pedido(id):
+@detalhe_pedido_bp.route('/detalhe-pedido/<int:id>', methods=['PUT'])
+def atualizar_detalhe_pedido(id):
     data = request.json
-    pedido = Pedido.query.get(id)
-    if not pedido:
-        return jsonify({'error': 'Pedido não encontrado'}), 404
+    detalhe_pedido = DetalhePedido.query.get(id)
+    if not detalhe_pedido:
+        return jsonify({'error': 'Detalhe do pedido não encontrado'}), 404
     
-    pedido.data_compras = data['data_compras']
+    detalhe_pedido.datalhe_desconto = data.get('datalhe_desconto')
     db.session.commit()
-    return jsonify({'id': pedido.pedido_id, 'cliente': pedido.cliente_id, 'data': pedido.data_compras}), 200
+    return jsonify({'id': detalhe_pedido.detalhe_id, 'desconto': detalhe_pedido.detalhe_desconto}), 200
  
-@pedido_bp.route('/pedido/<int:id>', methods=['DELETE'])
-def deletar_pedido(id):
-    pedido = Pedido.query.get(id)
+@detalhe_pedido_bp.route('/detalhe-pedido/<int:id>', methods=['DELETE'])
+def deletar_detalhe_pedido(id):
+    detalhe_pedido = DetalhePedido.query.get(id)
     
-    if not pedido:
-        return jsonify({'error': 'Pedido não encontrado'}), 404
+    if not detalhe_pedido:
+        return jsonify({'error': 'Detalhe do pedido não encontrado'}), 404
     
-    db.session.delete(pedido)
+    db.session.delete(detalhe_pedido)
     db.session.commit()
-    return jsonify({'message': 'Pedido deletado com sucesso'}), 204
-    """
+    return jsonify({'message': 'Detalhe do Pedido deletado com sucesso'}), 204
+    
